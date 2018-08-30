@@ -1,9 +1,14 @@
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
+mongoose.connect('mongodc://localhost/rotten-patatoes', {useMongoClient: true});
 var exhbs = require('express-handlebars');
 
 app.engine('handlebars',exhbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+
+const Review = mongoose.model('Review', {title: String});
+
 
 /*
 app.get('/', (req, res) => {
@@ -11,14 +16,20 @@ app.get('/', (req, res) => {
 }) */
 
 //mock array of projects
-let reviews = [
+/*let reviews = [
     {title: 'Great Review'},
     {title: 'Next Review'}
-]
+]*/
 
 //index//
 app.get('/', (req, res) => {
-    res.render('reviews-index', {reviews: reviews});
+    Review.find()
+    .then(reviews => {
+        res.render('reviews-index', {reviews: reviews});
+    })
+    .catch(err => {
+        console.log(err);
+    })
 })
 
 
