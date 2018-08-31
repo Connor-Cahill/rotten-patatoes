@@ -1,14 +1,30 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-mongoose.connect('mongodc://localhost/rotten-patatoes', {useMongoClient: true});
+mongoose.connect('mongodb://localhost/rotten-patatoes', { useNewUrlParser: true });
 var exhbs = require('express-handlebars');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.engine('handlebars',exhbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-const Review = mongoose.model('Review', {title: String});
+const Review = mongoose.model('Review', {
+    title: String,
+    description: String,
+    movieTitle: String,
+    rating: Number
+});
 
+app.get('/', (req, res) => {
+    Review.find()
+    .then(reviews => {
+        res.render('reviews-index', { reviews: reviews });
+    }).catch(err => {
+        console.log(err);
+    })
+})
 
 /*
 app.get('/', (req, res) => {
@@ -22,15 +38,28 @@ app.get('/', (req, res) => {
 ]*/
 
 //index//
-app.get('/', (req, res) => {
-    Review.find()
-    .then(reviews => {
-        res.render('reviews-index', {reviews: reviews});
-    })
-    .catch(err => {
-        console.log(err);
+
+
+app.get('/reviews/new', (req, res) => {
+    res.render('reviews-new', {});
+})
+
+app.post('/reviews', (req, res)=> {
+    console.log(req.body);
+    res.render('reviews-new', {});
+})
+
+//CREATE
+app.post('/reviews/new', (req, res) => {
+    Review.create(req.body).then((review) => {
+        console.log(review);
+        //should redirect to home route... currently not working
+        res.redirect('/');
+    }).catch((err) => {
+        console.log(err.message);
     })
 })
+
 
 
 

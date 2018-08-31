@@ -1,0 +1,32 @@
+<form class="new-review" action="/reviews" method="POST">
+    <fieldset>
+        <legend>New Review</legend>
+        <p>
+            <label for="title">Title</label>
+            <input type="text" name="title">
+        </p>
+
+        <p>
+            <label for="movie-title">Movie Title</label>
+            <input type="text" name="movieTitle" id="movie-title">
+        </p>
+
+        <p>
+            <label for="description-text">Description</label><br>
+            <textarea name="description" rows="10" id="description-text"></textarea>
+        </p>
+        <p>
+            <label for="rating">Rating</label>
+            <select class="rating" name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </p>
+    </fieldset>
+    <p>
+        <button type="submit">Save Review</button>
+    </p>
+</form>
