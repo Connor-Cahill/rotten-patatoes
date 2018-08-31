@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/rotten-patatoes', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/rotten-patatoes', { useNewUrlParser: true });
 var exhbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 
@@ -35,8 +35,8 @@ app.get('/', (req, res) => {
 /*let reviews = [
     {title: 'Great Review'},
     {title: 'Next Review'}
-]*/
-
+]
+*/
 //index//
 
 
@@ -44,17 +44,25 @@ app.get('/reviews/new', (req, res) => {
     res.render('reviews-new', {});
 })
 
-app.post('/reviews', (req, res)=> {
-    console.log(req.body);
-    res.render('reviews-new', {});
-})
+// app.post('/reviews', (req, res)=> {
+//     console.log(req.body);
+//     res.render('reviews-new', {});
+// })
 
 //CREATE
-app.post('/reviews/new', (req, res) => {
+app.post('/reviews', (req, res) => {
     Review.create(req.body).then((review) => {
         console.log(review);
-        //should redirect to home route... currently not working
-        res.redirect('/');
+        //redirect after review is saved
+        res.redirect(`reviews/${review._id}`);
+    }).catch((err) => {
+        console.log(err.message);
+    })
+})
+
+app.get('/reviews/:id', (req, res) => {
+    Review.findById(req.params.id).then((review) => {
+        res.render('reviews-show', {review: review})
     }).catch((err) => {
         console.log(err.message);
     })
