@@ -68,6 +68,14 @@ app.get('/reviews/:id', (req, res) => {
     })
 })
 
+//Edit////////////
+app.get('/reviews/:id/edit', function(req, res) {
+    Review.findById(req.params.id, function(err, review) {
+        res.render('reviews-edit', {review: review});
+    })
+})
+
+
 
 
 
