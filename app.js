@@ -4,6 +4,7 @@ const app = express();
 var exhbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const reviewController = require('./controllers/reviews')
+const port = process.env.PORT || 5000;
 
 app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded({extended: true}));
