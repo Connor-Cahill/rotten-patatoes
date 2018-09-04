@@ -1,5 +1,5 @@
 const Review = require('../models/reviews');
-const Comment = require('../models/comment.js');
+const Comment = require('../models/comment');
 
 module.exports = function(app) {
     //index//
@@ -46,7 +46,7 @@ module.exports = function(app) {
             console.log(err.message)
         });
     });
-    
+
 
 
     //Edit////////////
@@ -75,6 +75,8 @@ module.exports = function(app) {
             console.log(err.message);
         })
     })
+
+
 
 
 }

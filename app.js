@@ -14,7 +14,7 @@ app.engine('handlebars',exhbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 reviewController(app);
-
+commentController(app);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}!`);
