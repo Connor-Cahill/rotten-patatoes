@@ -69,7 +69,7 @@ module.exports = function(app) {
     //DELETE /////////
     app.delete('/reviews/:id', function(req, res) {
         console.log('DELETE review')
-        Review.findByIdAndRemove(req.params.id).then((review) => {
+        Review.findOneAndDelete(req.params.id).then((review) => {
             res.redirect('/');
         }).catch((err) => {
             console.log(err.message);
