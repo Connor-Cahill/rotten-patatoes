@@ -1,9 +1,10 @@
 const express = require('express');
 const methodOverride = require('method-override')
 const app = express();
-var exhbs = require('express-handlebars');
+const exhbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const reviewController = require('./controllers/reviews')
+const commentController = require('./controllers/comments')
 const port = process.env.PORT || 5000;
 
 app.use(methodOverride('_method'))

@@ -27,13 +27,26 @@ module.exports = function(app) {
         })
     })
 
-    app.get('/reviews/:id', (req, res) => {
+/*    app.get('/reviews/:id', (req, res) => {
         Review.findById(req.params.id).then((review) => {
             res.render('reviews-show', {review: review})
         }).catch((err) => {
             console.log(err.message);
         })
-    })
+    }) *///// old app.get for displaying single review by ID ////
+
+    //display single review and comments by ID/////
+    app.get('/reviews/:id', (req, res) => {
+        //find review //
+        Review.findById(req.params.id).then(review => {
+            Comment.find({reviewId: req.params.id}).then(comments => {
+                res.render('reviews-show', {review: review, comments: comments})
+            })
+        }).catch((err) => {
+            console.log(err.message)
+        });
+    });
+    
 
 
     //Edit////////////

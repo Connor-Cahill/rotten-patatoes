@@ -14,8 +14,13 @@
             <button type="submit">DELETE</button>
         </form></p>
 
-        <hr>
 
         {{> comment-form}}
+
+        <hr>
+        {{#each comments}}
+        {{> comment}}
+        {{/each}}
+
     </div>
 </div>
