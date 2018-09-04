@@ -1,4 +1,5 @@
 const Review = require('../models/reviews');
+const Comment = require('../models/comment.js');
 
 module.exports = function(app) {
     //index//
