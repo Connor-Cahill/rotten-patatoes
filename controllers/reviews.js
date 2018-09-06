@@ -75,7 +75,19 @@ module.exports = function(app) {
             console.log(err.message);
         })
     })
+//////Write new review for movie--- review in connected to movie now //////
+    app.get('/movies/:movieId/reviews/new', (req, res) => {
+        res.render('reviews-new', {movieId: req.params.movieId})
+    })
 
+    app.post('/movies/:movieId/reviews', (req, res) => {
+        Review.create(req.body).then((review) => {
+            console.log(review);
+            res.redirect(`/movies/${review.movieId}`);
+        }).catch((err) => {
+            console.log(err.message);
+        })
+    })
 
 
 

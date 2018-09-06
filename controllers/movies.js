@@ -28,24 +28,13 @@ module.exports = function(app) {
             }
         }).catch(console.error)
     })
-////for youtube trailers////////
-   // app.get('/movies/:id', (req, res) => {
-   //      moviedb.movieInfo({ id: req.params._id}).then(movie => {
-   //          if (movie.video) {
-   //              moviedb.movieVideos({id: req.params._id}).then(videos => {
-   //                  movie.trailer_youtube_id = videos.results[0].key
-   //                  renderTemplate(movie)
-   //              })
-   //          } else {
-   //              renderTemplate(movie)
-   //          }
-   //          function renderTemplate(movie) {
-   //              res.render('movies-show', {movie: movie});
-   //          }
-   //      }).catch((err) => {
-   //          console.log(err.message);
-   //      })
-   //  })
+
+    
+
+
+
+
+
 
 
 }
