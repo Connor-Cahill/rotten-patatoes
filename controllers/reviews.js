@@ -3,14 +3,14 @@ const Comment = require('../models/comment');
 
 module.exports = function(app) {
     //index//
-    app.get('/', (req, res) => {
+    /*app.get('/', (req, res) => {
         Review.find()
         .then(reviews => {
             res.render('reviews-index', { reviews: reviews });
         }).catch(err => {
             console.log(err);
         })
-    })
+    })*/
 
     app.get('/reviews/new', (req, res) => {
         res.render('reviews-new');
