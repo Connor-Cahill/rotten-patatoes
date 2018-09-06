@@ -12,14 +12,14 @@ module.exports = function(app) {
         })
     })*/
 
-    app.get('/reviews/new', (req, res) => {
-        res.render('reviews-new');
+    app.get('/movies/:movieId/reviews/new', (req, res) => {
+        res.render('reviews-new', { movieId: req.params.movieId});
     });
 
     //CREATE
-    app.post('/reviews', (req, res) => {
+    app.post('/movies/:movieId/reviews', (req, res) => {
         Review.create(req.body).then((review) => {
-            console.log(review);
+            //console.log(review);
             //redirect after review is saved
             res.redirect(`reviews/${review._id}`);
         }).catch((err) => {
@@ -36,7 +36,7 @@ module.exports = function(app) {
     }) *///// old app.get for displaying single review by ID ////
 
     //display single review and comments by ID/////
-    app.get('/reviews/:id', (req, res) => {
+    app.get('/movies/:movieId/reviews/:id', (req, res) => {
         //find review //
         Review.findById(req.params.id).then(review => {
             Comment.find({reviewId: req.params.id}).then(comments => {
@@ -50,7 +50,7 @@ module.exports = function(app) {
 
 
     //Edit////////////
-    app.get('/reviews/:id/edit', function(req, res) {
+    app.get('/movies/:movieId/reviews/:id/edit', function(req, res) {
         Review.findById(req.params.id, function(err, review) {
             res.render('reviews-edit', {review: review});
         })
@@ -60,21 +60,23 @@ module.exports = function(app) {
     app.put('/reviews/:id', (req, res) => {
         Review.findByIdAndUpdate(req.params.id, req.body)
         .then(review => {
-            res.redirect(`/reviews/${review._id}`);
+            res.redirect(`/movies/${review.movieId}`);
         }).catch(err => {
             console.log(err.message);
         })
     })
 
-    //DELETE /////////
-    app.delete('/reviews/:id', function(req, res) {
+    //DELETE /////////    findOneAndDelete      findByIdAndRemove
+    app.delete('/movies/:movieId/reviews/:id', function(req, res) {
         console.log('DELETE review')
         Review.findOneAndDelete(req.params.id).then((review) => {
-            res.redirect('/');
+            res.redirect(`/movies/${review.movieId}`);
         }).catch((err) => {
             console.log(err.message);
         })
     })
+
+    ////////////////////////MOVIE //////////////
 //////Write new review for movie--- review in connected to movie now //////
     app.get('/movies/:movieId/reviews/new', (req, res) => {
         res.render('reviews-new', {movieId: req.params.movieId})

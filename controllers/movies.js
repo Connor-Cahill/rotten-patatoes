@@ -1,5 +1,8 @@
 const MovieDb = require('moviedb-promise')
 const moviedb = new MovieDb(process.env.SECRET_KEY)
+const Review = require('../models/reviews');
+const Comment = require('../models/comment');
+
 
 
 module.exports = function(app) {
@@ -24,17 +27,13 @@ module.exports = function(app) {
             }
             //res.render('movies-show', {movie: movie});
             function renderTemplate(movie) {
-                res.render('movies-show', {movie: movie})
+                Review.find({movieId: req.params.id}).then(reviews => {
+                    console.log(reviews);
+                    res.render('movies-show', {movie: movie, reviews: reviews});
+                })
             }
         }).catch(console.error)
     })
-
-    
-
-
-
-
-
 
 
 }
