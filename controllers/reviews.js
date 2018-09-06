@@ -35,18 +35,26 @@ module.exports = function(app) {
         })
     }) *///// old app.get for displaying single review by ID ////
 
+
+
     //display single review and comments by ID/////
     app.get('/movies/:movieId/reviews/:id', (req, res) => {
         //find review //
         Review.findById(req.params.id).then(review => {
             Comment.find({reviewId: req.params.id}).then(comments => {
-                res.render('reviews-show', {review: review, comments: comments})
-            })
+                //res.render('reviews-show', {review: review, comments: comments})
+                res.redirect(`/movies/${review.movieId}`)
         }).catch((err) => {
             console.log(err.message)
         });
-    });
+    })
+})
+//////The below route was for testing//////
+/*app.get('/movies/:movieId/reviews/:id', (req, res) => {
+    res.render('movies-show')
+})*/
 
+///
 
 
     //Edit////////////
@@ -77,7 +85,7 @@ module.exports = function(app) {
     })
 
     ////////////////////////MOVIE //////////////
-//////Write new review for movie--- review in connected to movie now //////
+//////Write new review for movie--- review is connected to movie now //////
     app.get('/movies/:movieId/reviews/new', (req, res) => {
         res.render('reviews-new', {movieId: req.params.movieId})
     })
