@@ -42,8 +42,8 @@ module.exports = function(app) {
         //find review //
         Review.findById(req.params.id).then(review => {
             Comment.find({reviewId: req.params.id}).then(comments => {
-                //res.render('reviews-show', {review: review, comments: comments})
-                res.redirect(`/movies/${review.movieId}`)
+                res.render('reviews-show', {review: review, comments: comments})
+                //res.redirect(`/movies/${review.movieId}`)
         }).catch((err) => {
             console.log(err.message)
         });
@@ -54,15 +54,22 @@ module.exports = function(app) {
     res.render('movies-show')
 })*/
 
-///
 
 
-    //Edit////////////
-    app.get('/movies/:movieId/reviews/:id/edit', function(req, res) {
+
+    /////Edit////////////
+    app.get('/movies/:movieId/reviews/:id/edit', (req, res) => {
         Review.findById(req.params.id, function(err, review) {
             res.render('reviews-edit', {review: review});
         })
     })
+
+////////// Temporary route.... //////
+    // app.get('/reviews/:id/edit', (req, res) => {
+    //     Review.findById(req.params.id).then(review => {
+    //         res.render('reviews-edit', {review: review});
+    //     })
+    // })
 
     ///update //////////
     app.put('/reviews/:id', (req, res) => {
@@ -75,7 +82,7 @@ module.exports = function(app) {
     })
 
     //DELETE /////////    findOneAndDelete      findByIdAndRemove
-    app.delete('/movies/:movieId/reviews/:id', function(req, res) {
+    app.delete('/movies/:movieId/reviews/:id', (req, res) => {
         console.log('DELETE review')
         Review.findOneAndDelete(req.params.id).then((review) => {
             res.redirect(`/movies/${review.movieId}`);

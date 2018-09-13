@@ -29,6 +29,8 @@ module.exports = function(app) {
             function renderTemplate(movie) {
                 Review.find({movieId: req.params.id}).then(reviews => {
                     console.log(reviews);
+                    console.log('-----------');
+                    console.log(movie);
                     res.render('movies-show', {movie: movie, reviews: reviews});
                 })
             }

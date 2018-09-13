@@ -7,21 +7,26 @@
         <p>{{review.description}}</p>
         <p>Rating: {{review.rating}}/5</p>
 
+
         <p><a href="/reviews/{{review._id}}/edit">Edit</a></p>
 
-        <!-- Delete Button -->
-        <p><form method="POST" action="/reviews/{{review._id}}?_method=DELETE">
+
+        <p><form method="POST" action="/movies/{{review.movieId}}/reviews/{{review._id}}?_method=DELETE">
             <button type="submit">DELETE</button>
         </form></p>
+         <!-- {{> review}} -->
 
 <!-- Add comment section -->
         {{> comment-form}}
 
         <hr>
         <!-- displays comments -->
-        {{#each comments}}
-        {{> comment}}
-        {{/each}}
+        <div id="comments">
+            {{#each comments}}
+            {{> comment}}
+            {{/each}}
+        </div>
+
 
     </div>
 </div>

@@ -12,6 +12,7 @@ const port = process.env.PORT || 5000;
 
 app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(express.static('public'))
 
 app.engine('handlebars',exhbs({defaultLayout: 'main'}));
