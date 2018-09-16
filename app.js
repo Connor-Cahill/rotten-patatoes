@@ -7,6 +7,7 @@ const env = require('dotenv').config()
 const reviewController = require('./controllers/reviews')
 const commentController = require('./controllers/comments')
 const movieController = require('./controllers/movies')
+const adminController = require('./controllers/admin')
 const port = process.env.PORT || 5000;
 
 
@@ -21,6 +22,7 @@ app.set('view engine', 'handlebars');
 reviewController(app);
 commentController(app);
 movieController(app);
+adminController(app);
 
 
 app.listen(port, () => {
