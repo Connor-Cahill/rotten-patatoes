@@ -36,13 +36,16 @@ module.exports = function(app) {
     }) *///// old app.get for displaying single review by ID ////
 
 
-
+///; why is this not going in route///
     //display single review and comments by ID/////
     app.get('/movies/:movieId/reviews/:id', (req, res) => {
         //find review //
+        console.log('>>>>>>>> ' )
         Review.findById(req.params.id).then(review => {
+            console.log('these are the review ' + review)
             Comment.find({reviewId: req.params.id}).then(comments => {
-                res.render('reviews-show', {review: review, comments: comments})
+                console.log('these are the comments ' + comments)
+                res.render('reviews-show', {review, comments})
                 //res.redirect(`/movies/${review.movieId}`)
         }).catch((err) => {
             console.log(err.message)
@@ -99,7 +102,7 @@ module.exports = function(app) {
 
     app.post('/movies/:movieId/reviews', (req, res) => {
         Review.create(req.body).then((review) => {
-            console.log(review);
+            // console.log(review);
             res.redirect(`/movies/${review.movieId}`);
         }).catch((err) => {
             console.log(err.message);

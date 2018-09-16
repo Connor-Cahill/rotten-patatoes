@@ -12,8 +12,8 @@ module.exports = function(app) {
         Comment.create(req.body).then(comment => {
             //res.redirect(`/reviews/${comment.reviewId}`);
             res.status(200).send({comment: comment});
-            console.log(req.body);
-            console.log(comment.reviewId);
+            // console.log(req.body);
+            // console.log(comment.reviewId);
 
         }).catch((err) => {
             res.status(400).send({err: err})
@@ -31,7 +31,7 @@ module.exports = function(app) {
 //         })
 //     })
 //
-// }
+// }    '/reviews/:reviewId/comments/:id'
 app.delete('/reviews/:reviewId/comments/:id', function(req, res) {
     console.log('DELETE comment');
     Comment.findByIdAndRemove(req.params.id).then(comment => {

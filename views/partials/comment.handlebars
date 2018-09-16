@@ -1,9 +1,9 @@
-<div class="card" id="{{this._id}}">
+<div class="card comment-box" id="{{this._id}}">
     <div class="card-block">
         <h4 class="card-title">{{this.title}}</h4>
         <p class="card-text">{{this.content}}</p>
         <p>
-            <button class="btn btn-link deleteComment" id="deleteComment" data-comment-id="{{this._id}}" data-review-id="{{this.reviewId}}">Delete</button>
+            <button class="btn btn-link deleteComment" onClick="destroyComment()" id="deleteComment" data-comment-id="{{this._id}}" data-review-id="{{this.reviewId}}">Delete</button>
         </p>
     </div>
 </div>

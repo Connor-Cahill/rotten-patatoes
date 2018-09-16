@@ -19,6 +19,8 @@ newComment.addEventListener('submit', e => {
 
     console.log(JSON.stringify(data))
 
+
+
     // use axios to initialize a post request and send in the form data
     axios.post('/reviews/comments', data)
     .then((response) => {
@@ -29,23 +31,21 @@ newComment.addEventListener('submit', e => {
         newComment.reset()
         // display data as new comment on page
         const comments = document.getElementById('comments')
-///////using reponse returns undefined while using data. returns content'    ${response.data.comment._id}
+
         $(comments).prepend(`
-            <div class="card" id="${response._id}">
+            <div class="card comment-box" id="${this._id}">
                 <div class="card-block">
                     <h4 class="card-title">${response.data.comment.title}</h4>
                     <p class="card-text">${response.data.comment.content}</p>
                     <p>
-                        <form action="/reviews/${response.data.comment.reviewId}/comments/${response.data.comment._id}?_method=DELETE" method="post">
-                            <button type="submit" class="btn btn-link">Delete</button>
-                        </form>
+                        <button id="deleteComment" onClick="destroyComment()" class="btn btn-link deleteComment" data-comment-id="${response.data.comment._id}" data-review-id="${response.data.comment.reviewId}">Delete</button>
                     </p>
 
                 </div>
 
             </div>
             `)
-            // deleteCommentListener();
+
 
 
     }).catch((err) => {
@@ -56,56 +56,43 @@ newComment.addEventListener('submit', e => {
 
 
     });
-
+ 
 
 
 });
-
-function setupDeleteListeners() {
-    console.log('function is starting...')
-    const deleteBtn = document.querySelectorAll('.deleteComment');
-    deleteBtn.forEach((el) => {
-        console.log('adding event listeners')
-        el.addEventListener('click', (e) => {
-            console.log('delete button was clicked');
-            let commentId = el.getAttribute('data-comment-id');
-            let reviewId = el.getAttribute('data-review-id');
-            axios.delete(`/reviews/${reviewId}/comments/${commentId}`).then((res) => {
-                console.log('delete comment ', JSON.stringify(res))
-                let comment = document.getElementById(commentId)
-                comment.style.display = "none";
-            }).catch((err) => {
-                console.log(err.message);
-                alert('There was an issue deleting your comment.');
-            })
-        })
+function destroyComment(com) {
+    let deleteBtn = document.querySelector('.deleteComment');
+    let commentId = deleteBtn.getAttribute('data-comment-id');
+    let reviewId = deleteBtn.getAttribute('data-review-id');
+    axios.delete(`/reviews/${reviewId}/comments/${commentId}`).then(res => {
+        console.log(res);
+        let comment = document.querySelector('.comment-box');
+        comment.style.display = 'none';
+    }).catch(err => {
+        console.log(err);
     })
-
-
-
-
 }
 
-
-
-
-
-// function deleteCommentListener() {
-//     const deleteBtn = document.querySelectorAll('#deleteComment');
-//     deleteBtn.forEach(el => {
-//         console.log('adding event listener');
-//             el.addEventListener('click', (e) => {
-//             console.log('click!');
-//             let commentId = el.getAttribute('data-comment-id');
-//             let reviewId = el.getAttribute('data-review-id');
-//             axios.delete(`/reviews/${reviewId}/comments/${commentId}`)
-//             .then(res => {
-//                 let comment = document.getElementById('commentId');
-//                 comment.style.display = none;
-//             }).catch((err) => {
-//                 alert('There was an error deleting your comment.');
-//             })
-//         });
-//     });
+// current issue is that the event listener isnt adding onto the newly appended comment
+// but it sets up all other event listeners
 //
-// }
+// function setupDelListeners() {
+//     const deleteBtn = document.querySelector('.deleteComment');
+//     console.log('function is starting...' + deleteBtn)
+//         console.log('adding event listeners');
+//             deleteBtn.addEventListener('click', (e) => {
+//                 console.log('delete button was clicked');
+//                 let commentId = deleteBtn.getAttribute('data-comment-id');
+//                 let reviewId = deleteBtn.getAttribute('data-review-id');
+//
+//                 axios.delete(`/reviews/${reviewId}/comments/${commentId}`).then((res) => {
+//                     let comment = document.getElementById(commentId)
+//                     console.log('>>>>>> ' + commentId)
+//                     comment.parentNode.removeChild(comment);
+//
+//                 }).catch((err) => {
+//                     console.log(err);
+//                     alert('There was an issue deleting your comment.');
+//             })
+//         })
+//     }
