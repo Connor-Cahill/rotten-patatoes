@@ -10,11 +10,11 @@
     </thead>
     <tbody>
         {{#each reviews}}
-        <tr>
+        <tr class="review-box">
             <th scope="row">1</th>
             <td>{{this.title}}</td>
             <td>{{this.description}}</td>
-            <td><a href="#" id="deleteReview" data-review-id="{{this._id}}">Delete</a></td>
+            <td><a href="#" id="deleteReview" data-review-id="{{this._id}}" data-movie-id="{{this.movieId}}" class="delete-review" onClick="destroyReview()">Delete</a></td>
         </tr>
         {{/each}}
     </tbody>

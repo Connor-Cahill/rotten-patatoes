@@ -73,26 +73,13 @@ function destroyComment(com) {
     })
 }
 
-// current issue is that the event listener isnt adding onto the newly appended comment
-// but it sets up all other event listeners
-//
-// function setupDelListeners() {
-//     const deleteBtn = document.querySelector('.deleteComment');
-//     console.log('function is starting...' + deleteBtn)
-//         console.log('adding event listeners');
-//             deleteBtn.addEventListener('click', (e) => {
-//                 console.log('delete button was clicked');
-//                 let commentId = deleteBtn.getAttribute('data-comment-id');
-//                 let reviewId = deleteBtn.getAttribute('data-review-id');
-//
-//                 axios.delete(`/reviews/${reviewId}/comments/${commentId}`).then((res) => {
-//                     let comment = document.getElementById(commentId)
-//                     console.log('>>>>>> ' + commentId)
-//                     comment.parentNode.removeChild(comment);
-//
-//                 }).catch((err) => {
-//                     console.log(err);
-//                     alert('There was an issue deleting your comment.');
-//             })
-//         })
-//     }
+function destroyReview(id) {
+    let deleteReview = document.querySelector('.delete-review');
+    let reviewId = deleteReview.getAttribute('data-review-id');
+    axios.delete(`admin/reviews/${reviewId}`).then(res => {
+        let review = document.querySelector('.review-box');
+        review.style.display = 'none';
+    }).catch(err => {
+        console.log(err);
+    })
+}

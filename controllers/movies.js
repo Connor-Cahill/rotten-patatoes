@@ -19,7 +19,7 @@ module.exports = function(app) {
         moviedb.movieInfo({id: req.params.id}).then(movie => {
             if (movie.video){
                 moviedb.movieVideos({ id: req.params.id}).then(videos => {
-                    movie.trailer_youtube_id = videos.results[0].SECRET_KEY
+                    movie.trailer_youtube_id = videos.results[0].key
                     renderTemplate(movie)
                 })
             } else {

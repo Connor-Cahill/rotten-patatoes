@@ -9,4 +9,14 @@ module.exports = function (app) {
             console.log(err.message);
         })
     })
+
+    app.delete('/admin/reviews/:id', (req, res) => {
+        Review.findByIdAndRemove(req.params.id).then(review => {
+            res.status(200).send(review);
+        }).catch(err => {
+            res.status(400).send(err);
+        })
+    })
+
+
 }
